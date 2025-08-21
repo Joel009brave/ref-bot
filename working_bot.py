@@ -129,39 +129,4 @@ def main():
     app.run_polling()
 
 if __name__ == "__main__":
-    main()            save_data(data)
-            await context.bot.send_message(
-                chat_id=GIFT_CHANNEL,
-                text=f"🎁 @{user.username} {reward_map[amount]} TMT sowgady talap etdi. "
-                     f"Adminiň tassyklamagyny garaşýar."
-            )
-            await context.bot.send_message(
-                chat_id=ADMIN_ID,
-                text=f"✅ @{user.username} {reward_map[amount]} TMT sowgady talap etdi. Tassyklamaga garaşýar."
-            )
-            await query.edit_message_text("✅ Sowgad talabyň ugradylýar, adminiň tassyklamagyny garaşaň.")
-        else:
-            await query.edit_message_text("⚠️ Balansyň ýeterlik däl!")
-
-# 🔹 Admin üçin log
-async def admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id != ADMIN_ID:
-        return
-    data = load_data()
-    text = "📋 Referal Log:\n\n"
-    for uid, udata in data.items():
-        text += f"👤 @{udata['username']} | ID: {uid} | Bal: {udata['balance']} | Refs: {len(udata['refs'])}\n"
-    await update.message.reply_text(text)
-
-# 🔹 Run Bot
-def main():
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("start", ref_system))
-    app.add_handler(CommandHandler("admin", admin))
-    app.add_handler(CallbackQueryHandler(button_handler))
-
-    app.run_polling()
-
-if __name__ == "__main__":
     main()
